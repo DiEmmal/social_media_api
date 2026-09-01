@@ -12,8 +12,8 @@ export class RegisterUserUseCase {
 
     async execute(dto: CreateUserDto): Promise<UserEntity> {
         let {email, name, password} = dto;
+        
         password = await this.authService.hash(password);
-
         
         const user = await this.userRepository.register({
             email,

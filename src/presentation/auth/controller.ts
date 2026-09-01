@@ -5,6 +5,7 @@ import { RegisterUserUseCase } from '../../domain/use-cases/auth/register-user.u
 import { UserRepository } from '../../domain/repositories/user.repository.js';
 import { AuthService } from '../../domain/index.js';
 import { LoginUserUseCase } from '../../domain/use-cases/auth/login-user.use-case.js';
+import { CustomHttpError } from '../../domain/errors/custom-http.error.js';
 
 export class AuthController {
 
@@ -13,7 +14,15 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {
     this.userRepository = userRepository;
-  }
+  };
+
+  private handleError(error: unknown, res: Response) {
+
+    if (error instanceof CustomHttpError) return res.status(error.httpCode).json({ error: error.message });
+
+    return res.status(500).json({ error: 'Internal server error' });
+
+  };
 
   register = async (req: Request, res: Response) => {
     const { error, dto } = CreateUserDto.create(req.body);
@@ -25,9 +34,10 @@ export class AuthController {
       this.authService
     );
 
-    const newUser = await registerUserUseCase.execute(dto!);
+    await registerUserUseCase.execute(dto!)
+      .then(user => res.status(200).json({ message: `User registered successful, welcome ${user.name}!`, user }))
+      .catch(error => this.handleError(error, res));
 
-    return res.status(200).json({ message: `User registered successful, welcome ${newUser.name}!`, user: newUser });
   };
 
   login = async (req: Request, res: Response) => {
@@ -40,9 +50,9 @@ export class AuthController {
       this.authService
     );
 
-    const user = await loginUserUseCase.execute(dto!);
-
-    return res.status(200).json({ message: `User logged in successful, welcome ${user.name}!` });
+    await loginUserUseCase.execute(dto!)
+      .then(user => res.status(200).json({ message: `User logged in successful, welcome ${user.name}!` }))
+      .catch(error => this.handleError(error, res));
 
   };
 };

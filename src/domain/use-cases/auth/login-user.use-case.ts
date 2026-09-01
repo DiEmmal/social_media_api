@@ -1,5 +1,6 @@
 import { LoginUserDto } from "../../dtos/index.js";
 import { UserEntity } from "../../entities/user.entity.js";
+import { CustomHttpError } from "../../errors/custom-http.error.js";
 import { UserRepository } from "../../repositories/user.repository.js";
 import { AuthService } from "../../services/index.js";
 
@@ -20,7 +21,7 @@ export class LoginUserUseCase {
         
         const validated = await this.authService.compare(password, user.password);
 
-        if(!validated) throw ('Invalid password');
+        if(!validated) throw CustomHttpError.unauthorized('Invalid password');
 
         return user;
 
