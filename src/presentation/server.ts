@@ -14,6 +14,7 @@ export class Server {
   private readonly port: number;
   private readonly publicPath: string;
   private readonly routes: Router;
+  static MongoDatabase: any;
 
   constructor(options: StartAppOptions) {
     this.port = options.port;

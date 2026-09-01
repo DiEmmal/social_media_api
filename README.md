@@ -19,4 +19,5 @@ For register you need to provide a name, a email and a password
 1. Clone the repository
 2. Install dependencies
 3. Configure environment variables 
-4. Run the application
+4. Configure the database with docker-compose
+5. Run the application
