@@ -1,4 +1,5 @@
 import { getUUID } from "../../config/index.js";
+import { CustomHttpError } from "../errors/custom-http.error.js";
 
 export class UserEntity {
     public id: string;
@@ -17,9 +18,12 @@ export class UserEntity {
 
         const { name, email, password, id } = user;
 
-        if (!name || !email || !password) {
-            throw new Error("Invalid user object");
-        };
+        if(
+            !name ||
+            !email ||
+            !password ||
+            !id
+        ) throw CustomHttpError.internalServerError('User data is invalid');
 
         const newUserEntity = new UserEntity(
             name,

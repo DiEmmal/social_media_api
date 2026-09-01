@@ -11,9 +11,8 @@ export class LoginUserDto {
 
         const { email, password } = obj;
 
-        if (!email || !password) {
-            return { error: 'All fields are required' };
-        };
+        if(!email) return { error: 'User email is required' };
+        if(!password) return { error: 'User password is required' };
 
         return { dto: new LoginUserDto(email, password) };
 

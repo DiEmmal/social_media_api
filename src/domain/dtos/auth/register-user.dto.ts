@@ -12,9 +12,16 @@ export class CreateUserDto {
 
         const { name, email, password } = obj;
 
-        if(!name || !email || !password) {
-            return { error: 'All fields are required' };
-        };
+        if(!name) return { error: 'User name is required' };
+        if(name.length < 3) return { error: 'User name must be at least 3 characters long' };
+
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if(!email) return { error: 'User email is required' };
+        if(!emailRegex.test(email)) return { error: 'User email is invalid' };
+
+        if(!password) return { error: 'User password is required' };
+        if(password.length < 6) return { error: 'User password must be at least 6 characters long' };
+
 
         return { dto: new CreateUserDto(name, email, password) };
 

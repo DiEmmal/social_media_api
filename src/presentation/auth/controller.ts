@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { CreateUserDto } from '../../domain/dtos/auth/register-user.dto.js';
 import { LoginUserDto } from '../../domain/dtos/auth/login-user.dto.js';
 import { RegisterUserUseCase } from '../../domain/use-cases/auth/register-user.use-case.js';
