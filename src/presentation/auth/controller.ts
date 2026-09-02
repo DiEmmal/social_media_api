@@ -6,6 +6,7 @@ import { UserRepository } from '../../domain/repositories/user.repository.js';
 import { AuthService } from '../../domain/index.js';
 import { LoginUserUseCase } from '../../domain/use-cases/auth/login-user.use-case.js';
 import { CustomHttpError } from '../../domain/errors/custom-http.error.js';
+import { ValidateEmailUseCase } from '../../domain/use-cases/auth/validate-email.use-case.js';
 
 export class AuthController {
 
@@ -34,7 +35,7 @@ export class AuthController {
       this.authService
     );
 
-    await registerUserUseCase.execute(dto!)
+    registerUserUseCase.execute(dto!)
       .then(user => res.status(200).json({ message: `User registered successful, welcome ${user.name}!`, user }))
       .catch(error => this.handleError(error, res));
 
@@ -50,9 +51,27 @@ export class AuthController {
       this.authService
     );
 
-    await loginUserUseCase.execute(dto!)
+    loginUserUseCase.execute(dto!)
       .then(user => res.status(200).json({ message: `User logged in successful, welcome ${user.name}!` }))
       .catch(error => this.handleError(error, res));
 
   };
+
+  validateEmail = async (req: Request, res: Response) => {
+    let { token } = req.params;
+    token = Array.isArray(token) ? token[0] : token;
+
+    if (!token) return res.status(400).json({ error: 'Token is required' });
+
+    const validateEmailUseCase = new ValidateEmailUseCase(
+      this.userRepository,
+      this.authService
+    );
+
+    validateEmailUseCase.execute(token)
+      .then(validated => res.status(200).json({ message: 'Email validated successfully', validated }))
+      .catch(error => this.handleError(error, res));
+
+  };
+  
 };

@@ -37,4 +37,15 @@ export class UserDatasourceImpl implements UserDatasource {
 
     };
 
+    public async validateEmail(email: string): Promise<boolean> {
+
+        const user = await userModel.findOne({ email });
+        if(!user) throw CustomHttpError.notFound('User not found');
+
+        user.emailValidated = true;
+        await user.save();
+
+        return true;
+    };
+
 };

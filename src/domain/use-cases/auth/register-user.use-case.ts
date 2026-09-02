@@ -21,6 +21,8 @@ export class RegisterUserUseCase {
             password
         });
 
+        await this.authService.sendValidationEmailLink(email);
+
         return user;
 
     };

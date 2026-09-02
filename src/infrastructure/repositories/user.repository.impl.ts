@@ -15,4 +15,8 @@ export class UserRepositoryImpl implements UserRepository {
         return this.userDatasource.register(dto);
     };
 
-}
+    async updateEmailValidationStatus(email: string): Promise<boolean> {
+        return this.userDatasource.validateEmail(email);
+    };
+
+};

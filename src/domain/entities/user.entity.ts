@@ -6,23 +6,26 @@ export class UserEntity {
     public name: string;
     public email: string;
     public password: string;
+    public emailValidated: boolean;
 
     constructor(name: string, email: string, password: string) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.id = getUUID();
+        this.emailValidated = false;
     };
 
     public static fromObject(user: { [key: string]: any }): UserEntity {
 
-        const { name, email, password, id } = user;
+        const { name, email, password, id, emailValidated } = user;
 
         if(
             !name ||
             !email ||
             !password ||
-            !id
+            !id ||
+            emailValidated === undefined
         ) throw CustomHttpError.internalServerError('User data is invalid');
 
         const newUserEntity = new UserEntity(
@@ -32,6 +35,7 @@ export class UserEntity {
         );
         
         newUserEntity.id = id;
+        newUserEntity.emailValidated = emailValidated;
 
         return newUserEntity;
 
