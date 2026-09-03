@@ -11,19 +11,18 @@ export class LoginUserUseCase {
         private readonly authService: AuthService
     ){};
 
-    async execute(dto: LoginUserDto): Promise<UserEntity> {
-        let {email, password} = dto;
+    async execute(dto: LoginUserDto): Promise<{ user: UserEntity, token: string }> {
+        const user = await this.userRepository.login(dto);
 
-        const user = await this.userRepository.login({
-            email,
-            password
-        });
-        
-        const validated = await this.authService.compare(password, user.password);
-
+        const validated = await this.authService.compare(dto.password, user.password);
         if(!validated) throw CustomHttpError.unauthorized('Invalid password');
 
-        return user;
+        if(!user.emailValidated) throw CustomHttpError.forbidden('Email not validated');
+        
+        const token = await this.authService.generateJWT({ email: user.email, id: user.id }, 3600);
+        if(!token) throw CustomHttpError.internalServerError('Error generating token');
+
+        return { user, token };
 
     };
 

@@ -19,4 +19,8 @@ export class UserRepositoryImpl implements UserRepository {
         return this.userDatasource.validateEmail(email);
     };
 
+    async findByEmail(email: string): Promise<UserEntity | null> {
+        return this.userDatasource.findByEmail(email);
+    };
+
 };

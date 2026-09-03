@@ -3,7 +3,6 @@ import { AuthService, EmailService } from "../../domain/index.js";
 import { CustomHttpError } from "../../domain/errors/custom-http.error.js";
 import { envs } from "../../config/index.js";
 import jwt from "jsonwebtoken";
-import { userModel } from "../data/mongo/models/user.model.js";
 
 export class AuthServiceImpl implements AuthService {
 
@@ -25,8 +24,9 @@ export class AuthServiceImpl implements AuthService {
 
         if(!payload) throw CustomHttpError.unauthorized('Invalid token');
 
-        const { email } = payload as { email: string };
+        const { email, id } = payload as { email: string, id: string};
         if(!email) throw CustomHttpError.unauthorized('Email not in token payload');
+        if(!id) throw CustomHttpError.unauthorized('Id not in token payload');
 
         return { validated: true, email };
 
