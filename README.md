@@ -22,3 +22,7 @@ For register you need to provide a name, a email and a password
 - `POST /api/auth/login` - Log in an existing user
 For loggin you need your email and your password
 After login you will receive a token that you can use to access the API
+
+- `POST /api/posts` - Create a new post
+
+- `GET /api/posts` - Get all post

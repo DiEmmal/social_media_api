@@ -10,7 +10,7 @@ export class UserDatasourceImpl implements UserDatasource {
 
         const { email, password, name } = dto;
 
-        const userExist = await userModel.findOne({ email });
+        const userExist = await UserModel.findOne({ email });
         if(userExist) throw CustomHttpError.conflict(`User with ${email} already exists`);
 
         const newUserEntity = new UserEntity(
@@ -50,7 +50,7 @@ export class UserDatasourceImpl implements UserDatasource {
 
     public async findByEmail(email: string): Promise<UserEntity | null> {
 
-        const user = await userModel.findOne({ email });
+        const user = await UserModel.findOne({ email });
         if(!user) return null;
         
         return UserEntity.fromObject(user);
