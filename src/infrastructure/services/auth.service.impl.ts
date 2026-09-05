@@ -3,6 +3,7 @@ import { AuthService, EmailService } from "../../domain/index.js";
 import { CustomHttpError } from "../../domain/errors/custom-http.error.js";
 import { envs } from "../../config/index.js";
 import jwt from "jsonwebtoken";
+import { userModel } from "../data/mongo/models/user.model.js";
 
 export class AuthServiceImpl implements AuthService {
 

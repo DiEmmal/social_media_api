@@ -18,7 +18,6 @@ A social media API for user authentication, profile management, and future socia
 ### Endpoints
 - `POST /api/auth/register` - Register a new user
 For register you need to provide a name, a email and a password
-After register you will receive an email validation link, you need to validate your email before using the API
 
 - `POST /api/auth/login` - Log in an existing user
 For loggin you need your email and your password
