@@ -2,10 +2,13 @@ import type { Request, Response } from "express";
 import { getUUID } from "../../config/uuid.adapter.js";
 import { PostEntity } from "../../domain/entities/post.entity.js";
 import { CreatePostDto } from "../../domain/index.js";
+import type { PostRepository } from "../../domain/repositories/post.repository.js";
 
 export class PostsController {
 
-    contructor() { };
+    constructor(
+        private readonly postRepository: PostRepository,
+    ) { };
 
     public getPosts = async (req: Request, res: Response) => {
 
@@ -30,11 +33,11 @@ export class PostsController {
 
         const { error, dto } = CreatePostDto.create(req.body);
 
-        if(error) return res.status(400).json({ error });
+        if (error) return res.status(400).json({ error });
 
-        const post = new PostEntity(dto!.title, dto!.content, dto!.author)
-
-        return res.status(201).json({ message: 'Post created successfully', post });
+        return this.postRepository.createPost(dto!)
+        .then(post => res.status(201).json({ message: 'Post created successfully', post}))
+        .catch(error => res.status(500).json({ error }));
     };
 
 };

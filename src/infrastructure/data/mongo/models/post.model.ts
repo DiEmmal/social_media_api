@@ -14,8 +14,9 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: 'User',
     required: true,
   },
   created_at: {
@@ -24,4 +25,4 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-export const UserModel = mongoose.model('Post', postSchema);
+export const PostModel = mongoose.model('Post', postSchema);
