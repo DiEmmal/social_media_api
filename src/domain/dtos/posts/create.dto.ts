@@ -3,18 +3,17 @@ export class CreatePostDto {
     private constructor(
         public readonly title: string,
         public readonly content: string,
-        public readonly author: string,
-    ){};
+    ) { };
 
     static create(obj: { [key: string]: any }): { error?: string, dto?: CreatePostDto } {
 
-        if(!obj) return { error: 'Invalid post data' };
+        if (!obj) return { error: 'Invalid post data' };
 
-        const { title, content, author } = obj;
+        const { title, content, } = obj;
 
-        if(!title  || !content || !author) return { error: 'Invalid post data' };
+        if (!title || !content) return { error: 'Invalid post data' };
 
-        return { dto: new CreatePostDto(title, content, author) };
+        return { dto: new CreatePostDto(title, content) };
 
     };
 

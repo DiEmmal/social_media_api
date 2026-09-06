@@ -4,6 +4,7 @@ const postSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
+    unique: true,
   },
   title: {
     type: String,
@@ -13,15 +14,17 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  author: {
+  authorID: {
     type: String,
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: 'User',
     required: true,
   },
   created_at: {
     type: Date,
     default: Date.now,
+  },
+  authorName: {
+    type: String,
+    required: true,
   },
 });
 

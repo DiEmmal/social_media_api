@@ -52,7 +52,7 @@ export class AuthController {
     );
 
     loginUserUseCase.execute(dto!)
-      .then(({ user, token }) => res.status(200).json({ message: `User logged in successful, welcome ${user.name}!`, token }))
+      .then(({ user, token }) => res.status(200).json({ message: `User logged in successful, welcome again ${user.name}!`, token }))
       .catch(error => this.handleError(error, res));
 
   };

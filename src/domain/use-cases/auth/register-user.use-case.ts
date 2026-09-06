@@ -16,6 +16,8 @@ export class RegisterUserUseCase {
         
         const existingUser = await this.userRepository.findByEmail(email);
         if(existingUser) throw CustomHttpError.conflict(`User with ${email} already exists`);
+        
+        await this.authService.sendValidationEmailLink(email);
 
         password = await this.authService.hash(password);
         
@@ -24,8 +26,6 @@ export class RegisterUserUseCase {
             name,
             password
         });
-
-        await this.authService.sendValidationEmailLink(email);
 
         return user;
 

@@ -19,6 +19,7 @@ export class EmailServiceImpl extends EmailService {
         try {
 
             await this.transporter.sendMail({
+                from: envs.MAILER_EMAIL,
                 to,
                 subject,
                 html: html,
@@ -26,7 +27,7 @@ export class EmailServiceImpl extends EmailService {
 
             return true;
         } catch (error) {
-            return false;
+            throw error;
         };
     };
 

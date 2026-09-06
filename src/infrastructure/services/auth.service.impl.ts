@@ -22,17 +22,16 @@ export class AuthServiceImpl implements AuthService {
 
         });
 
-        if(!payload) throw CustomHttpError.unauthorized('Invalid token');
+        if (!payload) throw CustomHttpError.unauthorized('Invalid token');
 
-        const { email, id } = payload as { email: string, id: string};
-        if(!email) throw CustomHttpError.unauthorized('Email not in token payload');
-        if(!id) throw CustomHttpError.unauthorized('Id not in token payload');
+        const { email } = payload as { email: string };
+        if (!email) throw CustomHttpError.unauthorized('Email not in token payload');
 
         return { validated: true, email };
 
     };
 
-    async generateJWT(payload: object, duration: number = 3600): Promise<string> {
+    async generateJWT(payload: object, duration: number = 3600 * 24): Promise<string> {
 
         return new Promise((resolve, reject) => {
 
