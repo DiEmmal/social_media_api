@@ -1,12 +1,7 @@
 import { Router } from "express";
 import { PostsController } from "./controller.js";
-import { PostRepositoryImpl } from "../../infrastructure/repositories/post.repository.impl.js";
-import { PostDatasourceImpl } from "../../infrastructure/datasources/post.datasource.impl.js";
+import { PostDatasourceImpl, PostRepositoryImpl, UserRepositoryImpl, UserDatasourceImpl, AuthServiceImpl, EmailServiceImpl } from '../../infrastructure/index.js';
 import { AuthMiddleware } from "../middlewares/auth.middleware.js";
-import { UserRepositoryImpl } from "../../infrastructure/repositories/user.repository.impl.js";
-import { UserDatasourceImpl } from "../../infrastructure/datasources/user.datasource.impl.js";
-import { AuthServiceImpl } from "../../infrastructure/services/auth.service.impl.js";
-import { EmailServiceImpl } from "../../infrastructure/services/email.service.impl.js";
 
 export class PostsRoutes {
 

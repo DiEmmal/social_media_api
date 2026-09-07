@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
-import { AuthService, EmailService } from "../../domain/index.js";
-import { CustomHttpError } from "../../domain/errors/custom-http.error.js";
+import { AuthService, EmailService, CustomHttpError } from "../../domain/index.js";
 import { envs } from "../../config/index.js";
 import jwt from "jsonwebtoken";
 

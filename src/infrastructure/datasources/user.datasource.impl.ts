@@ -1,7 +1,4 @@
-import { UserDatasource } from "../../domain/datasources/user.datasource.js";
-import { UserEntity } from "../../domain/entities/user.entity.js";
-import { CustomHttpError } from "../../domain/errors/custom-http.error.js";
-import { CreateUserDto, LoginUserDto } from "../../domain/index.js";
+import { CreateUserDto, LoginUserDto, UserDatasource, UserEntity, CustomHttpError } from "../../domain/index.js";
 import { UserModel } from "../data/mongo/models/user.model.js";
 
 export class UserDatasourceImpl implements UserDatasource {
@@ -9,9 +6,6 @@ export class UserDatasourceImpl implements UserDatasource {
     public async register(dto: CreateUserDto): Promise<UserEntity> {
 
         const { email, password, name } = dto;
-
-        const userExist = await UserModel.findOne({ email });
-        if(userExist) throw CustomHttpError.conflict(`User with ${email} already exists`);
 
         const newUserEntity = new UserEntity(
             name,

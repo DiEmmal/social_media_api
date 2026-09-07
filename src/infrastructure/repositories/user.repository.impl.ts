@@ -1,7 +1,4 @@
-import { UserDatasource } from "../../domain/datasources/user.datasource.js";
-import { UserEntity } from "../../domain/entities/user.entity.js";
-import { CreateUserDto, LoginUserDto } from "../../domain/index.js";
-import { UserRepository } from "../../domain/repositories/user.repository.js";
+import { CreateUserDto, LoginUserDto, UserDatasource, UserEntity, UserRepository } from "../../domain/index.js";
 
 export class UserRepositoryImpl implements UserRepository {
 

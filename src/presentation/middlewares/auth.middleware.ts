@@ -1,7 +1,5 @@
+import { AuthService, UserEntity, UserRepository } from "../../domain/index.js";
 import type { NextFunction, Request, Response } from "express";
-import { UserEntity } from "../../domain/entities/user.entity.js";
-import type { AuthService } from "../../domain/index.js";
-import type { UserRepository } from "../../domain/repositories/user.repository.js";
 
 export class AuthMiddleware {
 

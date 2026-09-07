@@ -1,9 +1,6 @@
 import { Router } from 'express';
 import { AuthController } from './controller.js';
-import { UserDatasourceImpl } from '../../infrastructure/datasources/user.datasource.impl.js';
-import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repository.impl.js';
-import { AuthServiceImpl } from '../../infrastructure/services/index.js';
-import { EmailServiceImpl } from '../../infrastructure/services/email.service.impl.js';
+import { UserDatasourceImpl, UserRepositoryImpl, AuthServiceImpl , EmailServiceImpl } from '../../infrastructure/index.js';
 
 export class AuthRoutes {
   static get routes(): Router {

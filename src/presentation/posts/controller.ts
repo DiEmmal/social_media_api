@@ -1,9 +1,5 @@
+import { CreatePostDto, CustomHttpError, PostRepository, GetPostsUseCase, CreatePostUseCase } from "../../domain/index.js";
 import type { Request, Response } from "express";
-import { CreatePostDto } from "../../domain/index.js";
-import type { PostRepository } from "../../domain/repositories/post.repository.js";
-import { CustomHttpError } from "../../domain/errors/custom-http.error.js";
-import { GetPostsUseCase } from "../../domain/use-cases/posts/get.use-case.js";
-import { CreatePostUseCase } from "../../domain/use-cases/posts/create.use-case.js";
 
 export class PostsController {
 

@@ -14,4 +14,4 @@ export class AppRoutes {
         return router;
     };
 
-}
+};

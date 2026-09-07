@@ -14,6 +14,8 @@ export class LoginUserUseCase {
     async execute(dto: LoginUserDto): Promise<{ user: UserEntity, token: string }> {
         const user = await this.userRepository.login(dto);
 
+        if(user.emailValidated === false) throw CustomHttpError.unauthorized('User email is not validated yet');
+
         const validated = await this.authService.compare(dto.password, user.password);
         if(!validated) throw CustomHttpError.unauthorized('Invalid password');
 

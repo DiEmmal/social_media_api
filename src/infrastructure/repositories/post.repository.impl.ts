@@ -1,8 +1,4 @@
-import type { PostDatasource } from "../../domain/datasources/post.datasource.js";
-import type { PostEntity } from "../../domain/entities/post.entity.js";
-import type { UserEntity } from "../../domain/entities/user.entity.js";
-import type { CreatePostDto } from "../../domain/index.js";
-import type { PostRepository } from "../../domain/repositories/post.repository.js";
+import { CreatePostDto, PostDatasource, PostEntity, UserEntity, PostRepository } from "../../domain/index.js";
 
 export class PostRepositoryImpl implements PostRepository {
 

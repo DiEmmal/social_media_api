@@ -1,12 +1,5 @@
+import { AuthService, CreateUserDto, LoginUserDto, RegisterUserUseCase, UserRepository, LoginUserUseCase, ValidateEmailUseCase, CustomHttpError } from '../../domain/index.js';
 import type { Request, Response } from 'express';
-import { CreateUserDto } from '../../domain/dtos/auth/register-user.dto.js';
-import { LoginUserDto } from '../../domain/dtos/auth/login-user.dto.js';
-import { RegisterUserUseCase } from '../../domain/use-cases/auth/register-user.use-case.js';
-import { UserRepository } from '../../domain/repositories/user.repository.js';
-import { AuthService } from '../../domain/index.js';
-import { LoginUserUseCase } from '../../domain/use-cases/auth/login-user.use-case.js';
-import { CustomHttpError } from '../../domain/errors/custom-http.error.js';
-import { ValidateEmailUseCase } from '../../domain/use-cases/auth/validate-email.use-case.js';
 
 export class AuthController {
 

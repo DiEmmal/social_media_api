@@ -15,6 +15,7 @@ export class RegisterUserUseCase {
         let {email, name, password} = dto;
         
         const existingUser = await this.userRepository.findByEmail(email);
+        
         if(existingUser) throw CustomHttpError.conflict(`User with ${email} already exists`);
         
         await this.authService.sendValidationEmailLink(email);

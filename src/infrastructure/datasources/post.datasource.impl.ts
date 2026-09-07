@@ -1,7 +1,4 @@
-import type { PostDatasource } from "../../domain/datasources/post.datasource.js";
-import { PostEntity } from "../../domain/entities/post.entity.js";
-import type { UserEntity } from "../../domain/entities/user.entity.js";
-import type { CreatePostDto } from "../../domain/index.js";
+import { CreatePostDto, PostDatasource, PostEntity, UserEntity,  } from "../../domain/index.js";
 import { PostModel } from "../data/mongo/models/post.model.js";
 
 export class PostDatasourceImpl implements PostDatasource {
