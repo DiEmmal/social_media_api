@@ -1,4 +1,4 @@
-import { CreatePostDto, CustomHttpError, PostRepository, GetPostsUseCase, CreatePostUseCase } from "../../domain/index.js";
+import { CreatePostDto, CustomHttpError, PostRepository, GetPostsUseCase, CreatePostUseCase, PaginationDto } from "../../domain/index.js";
 import type { Request, Response } from "express";
 
 export class PostsController {
@@ -16,10 +16,14 @@ export class PostsController {
     };
 
     public getPosts = async (req: Request, res: Response) => {
+        const { page, limit } = req.query;
+        const { error, dto } = PaginationDto.create({ page: Number(page), limit: Number(limit) });
+
+        if(error) return res.status(400).json({ error });
 
         const getPostsUseCase = new GetPostsUseCase(this.postRepository);
 
-        return getPostsUseCase.execute()
+        return getPostsUseCase.execute(dto!)
             .then(posts => res.status(200).json(posts))
             .catch(error => this.handleError(error, res));
 

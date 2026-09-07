@@ -9,7 +9,14 @@ export class PostsRoutes {
 
     const router = Router();
 
-    const authMiddleware = new AuthMiddleware(new UserRepositoryImpl(new UserDatasourceImpl()), new AuthServiceImpl(new EmailServiceImpl()));
+    const authMiddleware = new AuthMiddleware(
+      new UserRepositoryImpl(
+        new UserDatasourceImpl()
+      ),
+      new AuthServiceImpl(
+        new EmailServiceImpl()
+      )
+    );
 
     const datasource = new PostDatasourceImpl();
     const repository = new PostRepositoryImpl(datasource);

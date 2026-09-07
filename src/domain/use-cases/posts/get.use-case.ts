@@ -1,3 +1,4 @@
+import type { PaginationDto } from "../../dtos/index.js";
 import type { PostEntity } from "../../entities/post.entity.js";
 import type { PostRepository } from "../../repositories/post.repository.js";
 
@@ -7,8 +8,8 @@ export class GetPostsUseCase {
         private readonly postRepository: PostRepository,
     ){};
 
-    public async execute(): Promise<PostEntity[]> {
-        return this.postRepository.getPosts();
+    public async execute(dto: PaginationDto): Promise<{ posts: PostEntity[], total: number}> {
+        return this.postRepository.getPosts(dto);
     };
 
 };
