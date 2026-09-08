@@ -24,7 +24,8 @@ export class PostsRoutes {
     const controller = new PostsController(repository);
 
     router.get('/', controller.getPosts);
-    router.post('/', [authMiddleware.validateJWT], controller.createPost)
+    router.post('/', [authMiddleware.validateJWT], controller.createPost);
+    router.post('/:postID/likes', [authMiddleware.validateJWT], controller.toggleLike);
 
     return router;
   };

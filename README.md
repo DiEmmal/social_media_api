@@ -56,15 +56,12 @@ npm run build && npm run start
 
 ## Authentication
 
-### Base route
-
-`/api/auth`
-
 ### Endpoints
 
 | Endpoint           | Method |                                                          Description |
 | :----------------- | :----: | -------------------------------------------------------------------: |
-| /api/auth/register |  POST  |                    Register a new user with email, name and password |     
+| /api/auth/register |  POST  |                    Register a new user with email, name and password |
 | /api/auth/login    |  POST  |                      Log in an existing user with email and password |
 | /api/posts         |  POST  | Make a new post with title and content, you need to be authenticated |
 | /api/posts         |  GET   |     Get all posts, you can see the posts without being authenticated |
+| /api/:postID/like  |  POST  |                            Like a post, you need to be authenticated |

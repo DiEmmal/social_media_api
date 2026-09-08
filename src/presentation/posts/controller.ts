@@ -1,4 +1,4 @@
-import { CreatePostDto, CustomHttpError, PostRepository, GetPostsUseCase, CreatePostUseCase, PaginationDto } from "../../domain/index.js";
+import { CreatePostDto, CustomHttpError, PostRepository, GetPostsUseCase, CreatePostUseCase, PaginationDto, ToggleLikeDto, ToggleLikeUseCase } from "../../domain/index.js";
 import type { Request, Response } from "express";
 
 export class PostsController {
@@ -39,6 +39,25 @@ export class PostsController {
 
         return createPostUseCase.execute(dto!, user)
             .then(post => res.status(201).json({ message: 'Post created successfully', post }))
+            .catch(error => this.handleError(error, res));
+    };
+
+    public toggleLike = async (req: Request, res: Response) => {
+        const user = req.body.user;
+
+        if (!user) return res.status(401).json({ error: 'User not authenticated' });
+
+        const { error, dto } = ToggleLikeDto.create({ postID: req.params.postID, liked: req.body.liked });
+
+        if (error) return res.status(400).json({ error });
+
+        const toggleLikeUseCase = new ToggleLikeUseCase(this.postRepository);
+
+        return toggleLikeUseCase.execute(dto!, user)
+            .then(result => res.status(200).json({
+                message: result.liked ? 'Like added successfully' : 'Like removed successfully',
+                ...result,
+            }))
             .catch(error => this.handleError(error, res));
     };
 

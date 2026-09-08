@@ -3,3 +3,4 @@ export * from './auth/register-user.use-case.js';
 export * from './auth/validate-email.use-case.js'
 export * from './posts/create.use-case.js'
 export * from './posts/get.use-case.js'
+export * from './posts/toggle-like.use-case.js'

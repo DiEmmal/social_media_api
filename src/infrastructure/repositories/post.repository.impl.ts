@@ -1,4 +1,4 @@
-import { CreatePostDto, PostDatasource, PostEntity, UserEntity, PostRepository, PaginationDto } from "../../domain/index.js";
+import { CreatePostDto, PostDatasource, PostEntity, UserEntity, PostRepository, PaginationDto, ToggleLikeDto } from "../../domain/index.js";
 
 export class PostRepositoryImpl implements PostRepository {
 
@@ -12,6 +12,10 @@ export class PostRepositoryImpl implements PostRepository {
 
     async getPosts(dto: PaginationDto): Promise<{ posts: PostEntity[], total: number}> {
         return await this.postDatasource.getPosts(dto);
+    };
+
+    async toggleLike(dto: ToggleLikeDto, user: UserEntity): Promise<{ liked: boolean, likes: number, postID: string }> {
+        return await this.postDatasource.toggleLike(dto, user);
     };
 
 };
