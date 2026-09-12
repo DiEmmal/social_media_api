@@ -17,7 +17,7 @@ export class PostsController {
 
     public getPosts = async (req: Request, res: Response) => {
         const { page, limit } = req.query;
-        const { error, dto } = PaginationDto.create({ page: Number(page), limit: Number(limit) });
+        const { error, dto } = page && limit ? PaginationDto.create({ page: Number(page), limit: Number(limit) }) : PaginationDto.create();
 
         if(error) return res.status(400).json({ error });
 
@@ -44,7 +44,7 @@ export class PostsController {
 
     public toggleLike = async (req: Request, res: Response) => {
         const user = req.body.user;
-
+        
         if (!user) return res.status(401).json({ error: 'User not authenticated' });
 
         const { error, dto } = ToggleLikeDto.create({ postID: req.params.postID, liked: req.body.liked });

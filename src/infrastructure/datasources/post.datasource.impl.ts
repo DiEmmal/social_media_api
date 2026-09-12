@@ -5,7 +5,14 @@ export class PostDatasourceImpl implements PostDatasource {
 
     async createPost(dto: CreatePostDto, user: UserEntity): Promise<PostEntity> {
 
-        const newPost = new PostEntity(dto.title, dto.content, user.id, user.name);
+        const newPost = new PostEntity({
+            author: {
+                id: user.id,
+                name: user.name
+            },
+            content: dto.content,
+            title: dto.title,
+        });
 
         const savedPost = await PostModel.create(newPost);
 

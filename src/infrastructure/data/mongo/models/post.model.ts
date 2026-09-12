@@ -14,17 +14,13 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  authorID: {
-    type: String,
-    required: true,
+  author: {
+    name: { type: String, required: true},
+    id: { type: String, required: true}
   },
   created_at: {
     type: Date,
     default: Date.now,
-  },
-  authorName: {
-    type: String,
-    required: true,
   },
   likes: {
     type: Number,
