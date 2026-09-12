@@ -6,16 +6,16 @@ export class PostEntity {
     public content: string;
     public created_at: Date;
     public author: { id: string, name: string };
-    public likes: number;
-    public likedBy: string[];
+    public likes: { likedBy: string[], count: number };
+    public comments: string[];
 
     constructor(props:
         {
             title: string,
             content: string,
             author: { id: string, name: string },
-            likes?: number,
-            likedBy?: string[]
+            likes?: { likedBy: string[], count: number }
+            comments?: string[]
         }
     ) {
         this.id = getUUID();
@@ -23,20 +23,20 @@ export class PostEntity {
         this.content = props.content;
         this.created_at = new Date();
         this.author = { id: props.author.id, name: props.author.name };
-        this.likes = props.likes ?? 0;
-        this.likedBy = props.likedBy ?? [];
+        this.likes = props.likes || { likedBy: [], count: 0 };
+        this.comments = props.comments || [];
     };
 
     static fromObject(props: { [key: string]: any }): PostEntity {
 
-        const { id, title, content, author, likes, likedBy } = props;
+        const { id, title, content, author, likes, comments } = props;
 
         const post = new PostEntity({
             title,
             content,
             author,
             likes,
-            likedBy,
+            comments,
         });
 
         post.id = id;

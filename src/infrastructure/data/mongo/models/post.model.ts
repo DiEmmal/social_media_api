@@ -15,18 +15,18 @@ const postSchema = new mongoose.Schema({
     required: true,
   },
   author: {
-    name: { type: String, required: true},
-    id: { type: String, required: true}
+    name: { type: String, required: true },
+    id: { type: String, required: true }
   },
   created_at: {
     type: Date,
     default: Date.now,
   },
   likes: {
-    type: Number,
-    default: 0,
+    count: { type: Number, default: 0 },
+    likedBy: { type: [String], default: [] },
   },
-  likedBy: {
+  comments: {
     type: [String],
     default: [],
   }

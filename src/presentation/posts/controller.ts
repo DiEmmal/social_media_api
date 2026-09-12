@@ -1,4 +1,4 @@
-import { CreatePostDto, CustomHttpError, PostRepository, GetPostsUseCase, CreatePostUseCase, PaginationDto, ToggleLikeDto, ToggleLikeUseCase } from "../../domain/index.js";
+import { CreatePostDto, CustomHttpError, PostRepository, GetPostsUseCase, CreatePostUseCase, PaginationDto, ToggleLikeDto, ToggleLikeUseCase, CreateCommentDto, CreateCommentUseCase } from "../../domain/index.js";
 import type { Request, Response } from "express";
 
 export class PostsController {
@@ -44,7 +44,6 @@ export class PostsController {
 
     public toggleLike = async (req: Request, res: Response) => {
         const user = req.body.user;
-        
         if (!user) return res.status(401).json({ error: 'User not authenticated' });
 
         const { error, dto } = ToggleLikeDto.create({ postID: req.params.postID, liked: req.body.liked });
@@ -59,6 +58,21 @@ export class PostsController {
                 ...result,
             }))
             .catch(error => this.handleError(error, res));
+    };
+
+    public addComent = async (req: Request, res: Response) => {
+        const user = req.body.user;
+        if(!user) return res.status(401).json({ error: 'User not authenticated' });
+        const { error, dto } = CreateCommentDto.create({postID: req.params.postID, content: req.body.content});
+        
+        if(error) return res.status(400).json({ error });
+        
+        const createCommentUseCase = new CreateCommentUseCase(this.postRepository);
+        
+        createCommentUseCase.execute(dto!, user)
+        .then(comment => res.status(200).json({ message: 'Comment created successful', comment }))
+        .catch(error => this.handleError(error, res));
+
     };
 
 };
